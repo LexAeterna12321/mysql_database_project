@@ -1,10 +1,11 @@
 const express = require("express");
-const ejs = require("ejs");
+const bodyParser = require("body-parser");
 const { connection } = require("./db");
 
 const app = express();
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`----Listening on PORT: ${PORT}----`));
@@ -16,4 +17,16 @@ app.get("/", (req, res) => {
     const totalUsers = results[0].total;
     res.render("home", { totalUsers });
   });
+});
+
+app.post("/register", (req, res) => {
+  const { email } = req.body;
+  connection.query("INSERT INTO users SET ?", { email }, function(
+    error,
+    results,
+    fields
+  ) {
+    if (error) throw error;
+  });
+  res.send("Thanks for registration. Welcome to our cult!");
 });

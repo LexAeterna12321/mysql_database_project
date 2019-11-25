@@ -7,6 +7,8 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use("/assets", express.static(`${__dirname}/public`));
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`----Listening on PORT: ${PORT}----`));
 
@@ -28,5 +30,5 @@ app.post("/register", (req, res) => {
   ) {
     if (error) throw error;
   });
-  res.send("Thanks for registration. Welcome to our cult!");
+  res.redirect("/");
 });

@@ -1,0 +1,1 @@
+Simple project including MySQL as DBMS. To launch this project just type in your cli: npm install, and then npm start. You need to provide your on credentials in order to make a connection with your database.
